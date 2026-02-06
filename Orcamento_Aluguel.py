@@ -49,16 +49,22 @@ def menu_apartamento():
     qtd_quartos = ""
 
     while qtd_quartos != 2 and qtd_quartos != 1:
-        qtd_quartos = int(input("Deseja um apartamento de 1 ou 2 quartos?: "))
-        if qtd_quartos == 2:
-            valor_aluguel += 200.00
-            print(f"Total: {Fore.GREEN}{valor_aluguel:.2f}")
-        elif qtd_quartos == 1:
-            print(f"Total: {Fore.GREEN}{valor_aluguel:.2f}")
-            pass
-        else:
+        try:
+            qtd_quartos = int(input("Deseja um apartamento de 1 ou 2 quartos?: "))
+            if qtd_quartos == 2:
+                valor_aluguel += 200.00
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            elif qtd_quartos == 1:
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+                pass
+            else:
+                print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.")
+                voltar() 
+        except ValueError:
             print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.")
-            voltar()
+            voltar() 
+
+
         
     
 
@@ -66,38 +72,37 @@ def menu_apartamento():
 
 
 
-    tem_garagem = input("Deseja vaga de garagem? (S/N):").upper
+    tem_garagem = input("Deseja vaga de garagem? (S/N):").lower()
     if tem_garagem == "s":
         valor_aluguel += 300.00
-        print(f"Total: {Fore.GREEN}{valor_aluguel:.2f}")
+        print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
     elif tem_garagem == "n":
-        print(f"Total: {Fore.GREEN}{valor_aluguel:.2f}")
+        print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
     
         
 
 
 
 
-    tem_criancas = input("Possui crianças residindo no imóvel? (S/N):").upper
+    tem_criancas = input("Possui crianças residindo no imóvel? (S/N):").lower()
     if tem_criancas == "n":
-        valor_aluguel * 0.95 #desconto 5%
-        print(f"Total: {Fore.GREEN}{valor_aluguel:.2f}")
+        valor_aluguel *= 0.95 #desconto 5%
         print(f"{Fore.YELLOW}Desconto de 5% aplicado!")
+        print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
     elif tem_criancas == "s":
-        print(f"Total: {Fore.GREEN}{valor_aluguel:.2f}")
+        print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
     else:
         print(f"{Fore.RED}Opção não listada!")
         voltar()
 
 
 
-
+    print(f"Valor aluguel total:{Fore.GREEN}R$ {valor_aluguel:.2f}\n")
+    print(f"Contrato:{Fore.GREEN}R$ 2000.00")
     num_parcelas = int(input("Em quantas vezes quer parcelar o contrato (1-5)?: "))
-    if num_parcelas:
-        valor_aluguel = 2000.00 / num_parcelas
-        print(f"Número de cada parcela: {valor_aluguel:.2f}")
-        
-
+    valor_contrato = 2000.00 / num_parcelas
+    print(f"Número de parcelas: {num_parcelas}")
+    print(f"Valor de cada parcela: {Fore.GREEN}R$ {valor_contrato:.2f}")
     
     
     voltar()
