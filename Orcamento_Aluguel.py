@@ -15,8 +15,9 @@ def voltar():
 def menu_principal():
     while True:
         limpar_tela()
-        print(f"{Fore.CYAN}================= IMOBILIÁRIA R.M - GERADOR DE ORÇAMENTO =================")
-        print(f"\n(1) - Apartamento: {Fore.GREEN}R$ 700.00")
+        print(f"{Fore.CYAN}================= IMOBILIÁRIA R.M - GERADOR DE ORÇAMENTO 🏠 =================")
+        print(f"{Fore.YELLOW}Bem-Vindo a IMOBILIÁRIA R.M😊!!!")
+        print(f"\n(1) - Apartamento: {Fore.GREEN}R$ 700.00 {Fore.YELLOW}('SEM Crianças residindo no imóvel ganha Desconto de 5%')")
         print(f"(2) - Casa: {Fore.GREEN}R$ 900.00")
         print(f"(3) - Estúdio: {Fore.GREEN}R$ 1200.00")
         print(f"{Fore.RED}(0) - Sair\n")
@@ -34,7 +35,8 @@ def menu_principal():
         else:
             print(f"{Fore.RED}opção INVÁLIDA!...")
             voltar()
-            menu_apartamento()
+            menu_principal()
+            
 
 
 
@@ -42,11 +44,12 @@ def menu_principal():
 
 def menu_apartamento():
     limpar_tela()
-    print(f"{Fore.CYAN}================= APARTAMENTO =================")
+    print(f"{Fore.CYAN}================= CONFIGURAÇÃO DO APARTAMENTO =================")
     print(f"Valor: {Fore.GREEN}R$ 700.00\n\n")
 
     valor_aluguel = 700.00
     qtd_quartos = ""
+    
 
     while qtd_quartos != 2 and qtd_quartos != 1:
         try:
@@ -56,28 +59,33 @@ def menu_apartamento():
                 print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
             elif qtd_quartos == 1:
                 print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
-                pass
             else:
                 print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.")
                 voltar() 
+                menu_apartamento()
         except ValueError:
             print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.")
-            voltar() 
+            voltar()
+            menu_apartamento()
 
+    tem_garagem = ""
+    while tem_garagem != "s" and tem_garagem != "n":
+        tem_garagem = input("Deseja vaga de garagem? (S/N):").lower()
+        if tem_garagem == "s":
+            valor_aluguel += 300.00
+            print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+        elif tem_garagem == "n":
+            print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            pass
+        else:
+            print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 'S' ou 'N'...")
+            voltar()
+            
+            
+            
+            
+            
 
-        
-    
-
-
-
-
-
-    tem_garagem = input("Deseja vaga de garagem? (S/N):").lower()
-    if tem_garagem == "s":
-        valor_aluguel += 300.00
-        print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
-    elif tem_garagem == "n":
-        print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
     
         
 
@@ -97,14 +105,32 @@ def menu_apartamento():
 
 
 
-    print(f"Valor aluguel total:{Fore.GREEN}R$ {valor_aluguel:.2f}\n")
-    print(f"Contrato:{Fore.GREEN}R$ 2000.00")
+    print(f"Valor aluguel total: {Fore.GREEN}R$ {valor_aluguel:.2f}\n")
+    print(f"Contrato: {Fore.GREEN}R$ 2000.00")
     num_parcelas = int(input("Em quantas vezes quer parcelar o contrato (1-5)?: "))
     valor_contrato = 2000.00 / num_parcelas
-    print(f"Número de parcelas: {num_parcelas}")
-    print(f"Valor de cada parcela: {Fore.GREEN}R$ {valor_contrato:.2f}")
-    
-    
+
+    if tem_criancas == "n":
+        print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵 =================")
+        print(f"""
+Tipo do imóvel: APARTAMENTO
+{Fore.YELLOW}Desconto de 5%!
+{Fore.WHITE}Valor aluguel: {Fore.GREEN}R$ {valor_aluguel:.2f}
+{Fore.WHITE}Valor do parcelamento do Contrato: {Fore.GREEN}x{num_parcelas} de R$ {valor_contrato:.2f}
+
+{Fore.YELLOW}OBRIGADO POR UTILIZAR A IMOBILIÁRIA R.M😊!!!
+""")
+        
+    else:
+        print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL =================")
+        print(f"""
+Tipo do imóvel: APARTAMENTO
+{Fore.YELLOW}SEM Desconto
+{Fore.WHITE}Valor aluguel: {Fore.GREEN}{valor_aluguel:.2f}
+{Fore.WHITE}Valor do parcelamento do Contrato: {Fore.GREEN}x{num_parcelas} de R$ {valor_contrato:.2f}
+
+{Fore.YELLOW}OBRIGADO POR UTILIZAR A IMOBILIÁRIA R.M😊!!!
+""")
     voltar()
 
 
