@@ -49,7 +49,7 @@ def menu_apartamento():
 
     valor_aluguel = 700.00
     qtd_quartos = ""
-    
+    tem_garagem = ""
 
     while qtd_quartos != 2 and qtd_quartos != 1:
         try:
@@ -68,28 +68,17 @@ def menu_apartamento():
             voltar()
             menu_apartamento()
 
-    tem_garagem = ""
     while tem_garagem != "s" and tem_garagem != "n":
-        tem_garagem = input("Deseja vaga de garagem? (S/N):").lower()
-        if tem_garagem == "s":
-            valor_aluguel += 300.00
-            print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
-        elif tem_garagem == "n":
-            print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
-            pass
-        else:
-            print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 'S' ou 'N'...")
-            voltar()
-            
-            
-            
-            
-            
-
-    
-        
-
-
+            tem_garagem = input("Deseja vaga de garagem? (S/N):").lower()
+            if tem_garagem == "s":
+                valor_aluguel += 300.00
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            elif tem_garagem == "n":
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            else:
+                print(f"{Fore.RED}\nOpção INVÁLIDA! Digite apenas 'S' ou 'N'...")
+                voltar()
+                menu_apartamento()
 
 
     tem_criancas = input("Possui crianças residindo no imóvel? (S/N):").lower()
@@ -102,13 +91,25 @@ def menu_apartamento():
     else:
         print(f"{Fore.RED}Opção não listada!")
         voltar()
-
-
+        menu_apartamento()
 
     print(f"Valor aluguel total: {Fore.GREEN}R$ {valor_aluguel:.2f}\n")
     print(f"Contrato: {Fore.GREEN}R$ 2000.00")
-    num_parcelas = int(input("Em quantas vezes quer parcelar o contrato (1-5)?: "))
-    valor_contrato = 2000.00 / num_parcelas
+
+    num_parcelas = 0
+    while num_parcelas < 1 or num_parcelas > 5:
+            try:
+                num_parcelas = int(input("Em quantas vezes quer parcelar o contrato (1-5)?: "))
+                if 1 <= num_parcelas <= 5:
+                    valor_contrato = 2000.00 / num_parcelas
+                else:
+                    print(f"{Fore.RED}Opção inválida! Escolha de 1 a 5.")
+                    voltar()
+                    menu_apartamento()
+            except ValueError:
+                print(f"{Fore.RED}Opção inválida! Escolha de 1 a 5.")
+                voltar()
+                menu_apartamento()
 
     if tem_criancas == "n":
         print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵 =================")
@@ -122,7 +123,7 @@ Tipo do imóvel: APARTAMENTO
 """)
         
     else:
-        print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL =================")
+        print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵  =================")
         print(f"""
 Tipo do imóvel: APARTAMENTO
 {Fore.YELLOW}SEM Desconto
@@ -131,11 +132,9 @@ Tipo do imóvel: APARTAMENTO
 
 {Fore.YELLOW}OBRIGADO POR UTILIZAR A IMOBILIÁRIA R.M😊!!!
 """)
+    
     voltar()
-
-
-
-
+    menu_principal()
 
 
 
@@ -149,14 +148,22 @@ Tipo do imóvel: APARTAMENTO
 
 def menu_Casa():
     limpar_tela()
-    print(f"{Fore.CYAN}================= CASA =================")
+    print(f"{Fore.CYAN}================= CONFIGURAÇÃO DA CASA =================")
     print(f"Valor: {Fore.GREEN} R$ 900,00\n\n")
     voltar()
 
 
+
+
+
+
+
+
+
+
 def menu_estudio():
     limpar_tela()
-    print(f"{Fore.CYAN}================= ESTÚDIO =================")
+    print(f"{Fore.CYAN}================= CONFIGURAÇÃO DO ESTÚDIO =================")
     print(f"Valor: {Fore.GREEN}R$ 1200,00\n\n")
     voltar()
 
@@ -165,26 +172,3 @@ def menu_estudio():
 
 
 menu_principal()
-
-class Imovel:
-    def __init__(self):
-        self.taxa_contrato = 2000.00 
-        self.aluguel_final = 0.00
-
-class Apartamento(Imovel):
-    def __init__(self):
-        super().__init__() 
-        self.valor_base = 700.00
-    
-    def calcular_aluguel(apartamento):
-        return 
-
-class Casa(Imovel):
-    def __init__(self):
-        super().__init__()
-        self.valor_base = 900.00
-
-class Estudio(Imovel):
-    def __init__(self):
-        super().__init__()
-        self.valor_base = 1200.00
