@@ -10,6 +10,7 @@ def limpar_tela():
 
 def voltar():
     input(f"{Fore.YELLOW}\n\nPressione o 'ENTER' para voltar...")
+    return
 
 
 def menu_principal():
@@ -48,8 +49,10 @@ def menu_apartamento():
     print(f"Valor: {Fore.GREEN}R$ 700.00\n\n")
 
     valor_aluguel = 700.00
-    qtd_quartos = ""
+    qtd_quartos = 0
     tem_garagem = ""
+    tem_criancas = ""
+    num_parcelas = 0
 
     while qtd_quartos != 2 and qtd_quartos != 1:
         try:
@@ -58,15 +61,16 @@ def menu_apartamento():
                 valor_aluguel += 200.00
                 print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
             elif qtd_quartos == 1:
+                qtd_quartos = 1
                 print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
             else:
                 print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.")
-                voltar() 
-                menu_apartamento()
+                voltar()
+                limpar_tela()
         except ValueError:
             print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.")
             voltar()
-            menu_apartamento()
+            limpar_tela()
 
     while tem_garagem != "s" and tem_garagem != "n":
             tem_garagem = input("Deseja vaga de garagem? (S/N):").lower()
@@ -78,7 +82,6 @@ def menu_apartamento():
             else:
                 print(f"{Fore.RED}\nOpção INVÁLIDA! Digite apenas 'S' ou 'N'...")
                 voltar()
-                menu_apartamento()
 
 
     tem_criancas = input("Possui crianças residindo no imóvel? (S/N):").lower()
@@ -91,12 +94,10 @@ def menu_apartamento():
     else:
         print(f"{Fore.RED}Opção não listada!")
         voltar()
-        menu_apartamento()
 
     print(f"Valor aluguel total: {Fore.GREEN}R$ {valor_aluguel:.2f}\n")
     print(f"Contrato: {Fore.GREEN}R$ 2000.00")
 
-    num_parcelas = 0
     while num_parcelas < 1 or num_parcelas > 5:
             try:
                 num_parcelas = int(input("Em quantas vezes quer parcelar o contrato (1-5)?: "))
@@ -105,11 +106,10 @@ def menu_apartamento():
                 else:
                     print(f"{Fore.RED}Opção inválida! Escolha de 1 a 5.")
                     voltar()
-                    menu_apartamento()
             except ValueError:
                 print(f"{Fore.RED}Opção inválida! Escolha de 1 a 5.")
                 voltar()
-                menu_apartamento()
+                
 
     if tem_criancas == "n":
         print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵 =================")
@@ -134,8 +134,6 @@ Tipo do imóvel: APARTAMENTO
 """)
     
     voltar()
-    menu_principal()
-
 
 
 
