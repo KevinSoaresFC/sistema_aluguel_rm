@@ -7,47 +7,47 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>  
     <div class="main_card">
-        <hr>
-        <br>              
-        <h1> IMOBILIARIA<span>R.M</span>🏠</h1>
-        <h3 class="subtitulo">Orçamento de Aluguel</h3>
+        <hr>          
+        <h1> IMOBILIARIA <span>R.M</span>🏠</h1>
+        <br>
+        <h2 class="subtitulo">Orçamento de Aluguel</h2>
 
-        <form id="orcamentoform">
+        <form id="meuForm">
             <div class="input_group">
                 <label>Tipo do Imóvel</label>
-                <select id="tipo_imovel">
+                <select id="tipo" onchange="gerenciarCampos()">
                     <option value="apartamento">Apartamento: R$ 700,00</option>
                     <option value="casa">Casa: R$ 900,00</option>
                     <option value="estudio">Estúdio: R$ 1200,00</option>
                 </select>
             </div>
 
-        <div class="grid_inputs">
-            <div class="input_group">
-                <label>Quartos</label>
-                <select id="Quartos">
+            <div class="input_group" id="grupo_quartos">
+                <label>Quantidade de Quartos</label>
+                <select id="quartos">
                     <option value="1">1 Quarto</option>
-                    <option value="2">2 Quarto</option>
+                    <option value="2">2 Quartos</option>
                 </select>
             </div>
+
             <div class="input_group">
                 <label>Vagas de Garagem</label>
-                <input type="number" id="Vagas" value="0" min="0" max="4">
+                <input type="number" id="vagas" value="0">
             </div>
-        </div>
 
-            <div class="input_group">
-                <label>Possui Crinças? (Apenas Apartamento)</label>
+            <div class="input_group escondido" id="grupo_criancas">
+                <label>Possui Crianças? (Apenas Apartamento)</label>
                 <select id="criancas">
-                    <option value="sim">sim</option>
-                    <option value="nao">não (Desconto de 5% no aluguel)</option>
+                    <option value="s">Sim</option>
+                    <option value="n">Não (Desconto de 5%)</option>
                 </select>
             </div>
 
             <div class="input_group">
-                <label>Parcelar Contrato (R$ 2.000)</label>
+                <label>Parcelar Contrato (R$ 2.000 até 5x)</label>
                 <select id="parcelas">
                     <option value="1">1x (À vista)</option>
                     <option value="2">2x </option>
@@ -56,21 +56,98 @@
                     <option value="5">5x </option>
                 </select>
             </div>
+            <br>
 
+            <button type="button" class="botao_calcula" onclick="calcular()">Calcular</button>
         </form>
 
-
-
-
-
-
-
-
-
+        <div class="caixa_resultado">
+            <h3>Resumo do Orçamento</h3>
+            <div id="conteudo_dinamico">
+                <p>Aluguel mensal: <strong id="res_aluguel">R$ 0.00</strong></p>
+                <p>Contrato: R$ 2.000,00</p>
+                <p>Parcelamento: <strong id="res_parcela">0x de R$ 0.00</strong></p>
+            </div>
+        </div>
     </div>
 
+    <script>
+        function gerenciarCampos() {
+            const tipo = document.getElementById('tipo').value;
+            const grupoCriancas = document.getElementById('grupo_criancas');
+            const grupoQuartos = document.getElementById('grupo_quartos');
 
+            if (tipo === 'apartamento') {
+                grupoCriancas.classList.remove('escondido');
+            } else {
+                grupoCriancas.classList.add('escondido');
+                document.getElementById('criancas').value = 's'; 
+            }
 
-    <script src="js/scirpt.js">  </script>
+            if (tipo === 'estudio') {
+                grupoQuartos.classList.add('escondido');
+            } else {
+                grupoQuartos.classList.remove('escondido');
+            }
+        }
+
+        window.onload = gerenciarCampos;
+
+        function calcular() {
+            const tipo = document.getElementById('tipo').value;
+            const quartos = parseInt(document.getElementById('quartos').value);
+            const vagas = parseInt(document.getElementById('vagas').value);
+            const criancas = document.getElementById('criancas').value;
+            const parcelas = parseInt(document.getElementById('parcelas').value);
+            const display = document.getElementById('conteudo_dinamico');
+            
+            let aluguel = 0;
+            let erros = [];
+
+            if (tipo === "estudio" && (vagas < 0 || vagas > 4)) {
+                erros.push("ERRO: Estúdio permite apenas de 0 a 4 vagas.");
+            }
+            if ((tipo === "casa" || tipo === "apartamento") && vagas > 1) {
+                erros.push(`ERRO: ${tipo.toUpperCase()} aceita no máximo 1 vaga.`);
+            }
+
+            if (erros.length > 0) {
+                display.innerHTML = `<div class="mensagem_erro">${erros.join("<br>")}</div>`;
+                return;
+            }
+
+            if (tipo === "apartamento") {
+                aluguel = 700;
+                if (quartos === 2) aluguel += 200;
+                if (vagas > 0) aluguel += 300;
+                if (criancas === "n") aluguel *= 0.95; 
+            } 
+            else if (tipo === "casa") {
+                aluguel = 900;
+                if (quartos === 2) aluguel += 250;
+                if (vagas > 0) aluguel += 300;
+            } 
+            else if (tipo === "estudio") {
+                aluguel = 1200;
+                if (vagas >= 1 && vagas <= 2) {
+                    aluguel += 250;
+                } else if (vagas > 2) {
+                    let vagasExtras = vagas - 2;
+                    aluguel += 250 + (vagasExtras * 60);
+                }
+            }
+
+            const valorContrato = 2000;
+            const valorParcela = valorContrato / parcelas;
+
+            display.innerHTML = `
+                <p>Aluguel mensal: <strong>R$ ${aluguel.toFixed(2)}</strong></p>
+                <p>Contrato: R$ ${valorContrato.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                <p>Parcelamento: <strong>${parcelas}x de R$ ${valorParcela.toFixed(2)}</strong></p>
+            `;
+        }
+    </script>
+
 </body>
+
 </html>

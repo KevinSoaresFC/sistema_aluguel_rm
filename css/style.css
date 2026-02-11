@@ -1,0 +1,117 @@
+
+
+:root {
+    --azul: #2563eb;
+    --fundo: #f1f5f9;   
+    --texto: #1e293b;   
+}
+
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--azul);
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+
+.main_card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+    width: 100%;
+    max-width: 450px;
+}
+
+.escondido { display: none; }
+
+.mensagem_erro {
+    color: #d32f2f;
+    background-color: #fce8e8;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d32f2f;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#grupo_criancas {
+    display: none;
+    margin-top: 15px;
+}
+
+.input-group { margin-bottom: 15px; }
+
+
+.grid_inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+
+label { 
+    display: block; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    margin-bottom: 5px; 
+    color: #617796; 
+}
+
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #2c2f33;
+    border-radius: 8px;
+    outline: none;
+}
+
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+button:hover { background: #1d4ed8; }
+
+
+.caixa_resultado {
+    margin-top: 25px;
+    background: #bfc2c4;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid var(--texto);
+    border-right: 5px solid var(--texto);
+}
+
+
+.linha_resultado { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 8px; 
+}
+
+
+.dividir { 
+    height: 1px; 
+    background: #e2e8f0; 
+    margin: 10px 0; 
+}
+
+
+.res_total { 
+    font-weight: bold; 
+    color: var(--azul); 
+    font-size: 1.1rem; 
+}
