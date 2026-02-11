@@ -44,7 +44,7 @@ def menu_principal():
 def menu_apartamento():
     limpar_tela()
     print(f"{Fore.CYAN}================= CONFIGURAÇÃO DO APARTAMENTO =================")
-    print(f"Valor: {Fore.GREEN}R$ 700.00\n\n")
+    print(f"Valor: {Fore.GREEN}R$ 700.00   {Fore.YELLOW}('SEM Crianças, ganha Desconto de 5%')\n\n")
 
     valor_aluguel = 700.00
     qtd_quartos = 0
@@ -167,27 +167,44 @@ def menu_Casa():
     print(f"Valor: {Fore.GREEN} R$ 900,00\n\n")
 
     valor_aluguel = 900.00
-    tem_garagem = -1
+    tem_garagem = ""
     num_parcelas = 0
     arquivo_csv = ""
+    qtd_quartos = 0
 
-    while tem_garagem < 0 or tem_garagem > 3:
-            try:
-                tem_garagem = int(input("Quantas vagas de garagem deseja? (0-3):")).lower()
 
-                if tem_garagem > 0 and tem_garagem <= 3:
-                    valor_aluguel += (tem_garagem * 150.00)
-                    print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
-                elif tem_garagem == "0":
-                    print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
-                else:
-                    print(f"{Fore.RED}Opção inválida! Escolha de 1 a 5.", end="", flush=True)
-                    voltar()
-                    print("\033[F\033[K" * 5, end="", flush=True)
-            except ValueError:
-                print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.",end="", flush=True)
+    while qtd_quartos != 2 and qtd_quartos != 1:
+        try:
+            qtd_quartos = int(input("Deseja uma Casa de 1 ou 2 quartos?: "))
+            if qtd_quartos == 2:
+                valor_aluguel += 250.00
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            elif qtd_quartos == 1:
+                qtd_quartos = 1
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            else:
+                print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.", end="", flush=True)
                 voltar()
                 print("\033[F\033[K" * 4, end="", flush=True)
+        except ValueError:
+            print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas 1 ou 2.",end="", flush=True)
+            voltar()
+            print("\033[F\033[K" * 4, end="", flush=True)
+
+    while tem_garagem != "s" and tem_garagem != "n":
+            tem_garagem = input("Deseja vaga de garagem? (S/N):").lower()
+            if tem_garagem == "s":
+                valor_aluguel += 300.00
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            elif tem_garagem == "n":
+                print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
+            else:
+                print(f"{Fore.RED}\nOpção INVÁLIDA! Digite apenas 'S' ou 'N'...", end="", flush=True)
+                voltar()
+                print("\033[F\033[K" * 5, end="", flush=True)
+
+    print(f"Valor aluguel total: {Fore.GREEN}R$ {valor_aluguel:.2f}\n")
+    print(f"Contrato: {Fore.GREEN}R$ 2000.00")
             
 
     while num_parcelas < 1 or num_parcelas > 5:
@@ -206,10 +223,10 @@ def menu_Casa():
 
 
 
-                limpar_tela()
-                print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵  =================")
-                print(f"""
-        Tipo do imóvel: Casa
+            limpar_tela()
+            print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵  =================")
+            print(f"""
+        Tipo do imóvel: CASA
         {Fore.WHITE}Valor aluguel: {Fore.GREEN}R$ {valor_aluguel:.2f}
         {Fore.WHITE}Valor do parcelamento do Contrato: {Fore.GREEN}x{num_parcelas} de R$ {valor_contrato:.2f}
         """)
@@ -244,31 +261,34 @@ def menu_estudio():
     print(f"{Fore.CYAN}================= CONFIGURAÇÃO DO ESTÚDIO =================")
     print(f"Valor: {Fore.GREEN}R$ 1200,00\n\n")
 
+    valor_aluguel = 1200.00
     tem_garagem = -1
     num_parcelas = 0
     arquivo_csv = ""
 
     while tem_garagem < 0 or tem_garagem > 4:
             try:
-                tem_garagem = int(input("Quantas vagas de garagem deseja? (0-4):")).lower()
+                tem_garagem = int(input("Quantas vagas de garagem deseja? (0-4):"))
 
-                if tem_garagem > 0 and tem_garagem <= 2:
+                if tem_garagem >= 1 and tem_garagem <= 2:
                     valor_aluguel += 250.00
                     print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
                 elif tem_garagem > 2 and tem_garagem <= 4:
                     vagas_extras = tem_garagem - 2
                     valor_aluguel += 250.00 + (vagas_extras * 60.00)
-                elif tem_garagem == "0":
+                elif tem_garagem == 0:
                     print(f"Total: {Fore.GREEN}R$ {valor_aluguel:.2f}")
                 else:
-                    print(f"{Fore.RED}Opção inválida! Escolha de 1 a 4.", end="", flush=True)
+                    print(f"{Fore.RED}Opção inválida! Escolha de 0 a 4.", end="", flush=True)
                     voltar()
                     print("\033[F\033[K" * 5, end="", flush=True)
             except ValueError:
-                print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas de 1 a 4.",end="", flush=True)
+                print(f"{Fore.RED}Opção INVÁLIDA! Digite apenas de 0 a 4.",end="", flush=True)
                 voltar()
                 print("\033[F\033[K" * 4, end="", flush=True)
 
+    print(f"Valor aluguel total: {Fore.GREEN}R$ {valor_aluguel:.2f}\n")
+    print(f"Contrato: {Fore.GREEN}R$ 2000.00")
 
     while num_parcelas < 1 or num_parcelas > 5:
             try:
@@ -288,18 +308,7 @@ def menu_estudio():
             limpar_tela()
             print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵 =================")
             print(f"""
-    Tipo do imóvel: APARTAMENTO
-    {Fore.YELLOW}Desconto de 5%!
-    {Fore.WHITE}Valor aluguel: {Fore.GREEN}R$ {valor_aluguel:.2f}
-    {Fore.WHITE}Valor do parcelamento do Contrato: {Fore.GREEN}x{num_parcelas} de R$ {valor_contrato:.2f}
-    """)
-
-    else:
-            limpar_tela()
-            print(f"\n\n{Fore.CYAN}================= ORÇAMENTO DO ALUGUEL💵  =================")
-            print(f"""
-    Tipo do imóvel: APARTAMENTO
-    {Fore.YELLOW}SEM Desconto
+    Tipo do imóvel: ESTÚDIO
     {Fore.WHITE}Valor aluguel: {Fore.GREEN}R$ {valor_aluguel:.2f}
     {Fore.WHITE}Valor do parcelamento do Contrato: {Fore.GREEN}x{num_parcelas} de R$ {valor_contrato:.2f}
     """)
@@ -317,14 +326,8 @@ def menu_estudio():
             voltar()
             print("\033[F\033[K" * 4, end="", flush=True)
             continue
+
         voltar()
-
-
-
-
-
-    voltar()
-
 
 
 
