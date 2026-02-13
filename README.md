@@ -1,9 +1,6 @@
 # 🏠 Sistema de Gestão de Locação - Imobiliária R.M
 
 ![Status do Projeto](https://img.shields.io/badge/Status-Conclu%C3%ADdo-brightgreen)
-![Linguagem](https://img.shields.io/badge/Python-3.x-blue)
-![Frontend](https://img.shields.io/badge/Web-HTML5%20%7C%20CSS3%20%7C%20JS-orange)
-![Curso](https://img.shields.io/badge/ADS-UniFECAF-red)
 
 ## 📋 Sobre o Projeto
 Desenvolvido como projeto prático para o curso de **Análise e Desenvolvimento de Sistemas (UniFECAF)**, este sistema automatiza o processo de orçamento de aluguéis para a Imobiliária R.M. 
