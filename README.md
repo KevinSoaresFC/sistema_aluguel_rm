@@ -35,3 +35,7 @@ O foco principal foi a transposição de uma lógica de negócio robusta em **Py
 
 ---
 ## 👤 Autor
+
+Feito com dedicação por [Kevin Soares](https://github.com/KevinSoaresFC)
+
+
