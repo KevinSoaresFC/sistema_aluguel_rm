@@ -33,3 +33,5 @@ O foco principal foi a transposição de uma lógica de negócio robusta em **Py
 * **CSS3**: Estilização moderna e layout responsivo.
 * **JavaScript (Vanilla)**: Lógica de integração, cálculos em tempo real e manipulação dinâmica da interface.
 
+---
+## 👤 Autor
